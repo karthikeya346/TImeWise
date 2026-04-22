@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"; // ✅ UPDATED
 import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -10,13 +10,22 @@ const firebaseConfig = {
   storageBucket: "timewise444.appspot.com",
   messagingSenderId: "545063216098",
   appId: "1:545063216098:web:3d122c29b068fbb2d90fbb",
-  // Testing multiple likely default URLs for Realtime Database
   databaseURL: "https://timewise444-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+
+// ✅ ADDED (THIS FIXES AUTO LOGOUT)
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Persistence set to LOCAL ✅");
+  })
+  .catch((error) => {
+    console.error("Persistence error:", error);
+  });
+
 const provider = new GoogleAuthProvider();
 const rtdb = getDatabase(app);
 const db = getFirestore(app);
@@ -29,4 +38,3 @@ onValue(ref(rtdb, '.info/connected'), (snap) => {
 });
 
 export { auth, provider, rtdb, db };
-
