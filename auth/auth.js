@@ -104,15 +104,21 @@ window.googleLogin = async function () {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
-    
+
     const isRegistered = await checkRegistration(user.uid);
-    
+
     if (isRegistered) {
       window.location.href = "../pages/home/home.html";
     } else {
-      await signOut(auth);
-      showMessage("No registration found. Please sign up first.", "error");
+      // ✅ FIX: auto register instead of logout
+      await registerUser(user.uid, {
+        name: user.displayName || "User",
+        email: user.email
+      });
+
+      window.location.href = "../pages/home/home.html";
     }
+
   } catch (error) {
     console.error("Google login error:", error);
     showMessage("Google login failed.");
@@ -120,7 +126,6 @@ window.googleLogin = async function () {
     setLoading(false);
   }
 };
-
 /* FORGOT PASSWORD */
 window.forgotPassword = function () {
   if (!email.value) return showMessage("Enter your email first.");
@@ -154,4 +159,4 @@ window.toggleTheme = function () {
   applyTheme();
 };
 
-};
+};
