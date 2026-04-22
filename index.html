@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMEWISE | AI Architect</title>
+    <link rel="stylesheet" href="styles/glass.css">
+    <style>
+        .splash {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--text-main);
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+            margin-top: 20px;
+        }
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash">
+        <h1 style="font-size: 3rem; letter-spacing: 4px;">TIMEWISE</h1>
+        <p style="opacity: 0.7;">Initializing AI Architect...</p>
+        <span class="loader"></span>
+    </div>
+
+    <script type="module">
+        import { auth } from './scripts/firebase.js';
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        // Apply theme early
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+        onAuthStateChanged(auth, (user) => {
+            setTimeout(() => {
+                if (user) {
+                    window.location.href = 'pages/home/home.html';
+                } else {
+                    window.location.href = 'auth/login.html';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tasks | TIMEWISE</title>
+    <link rel="stylesheet" href="../../styles/glass.css">
+    <script>
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    </script>
+    <style>
+        .tasks-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+        }
+
+        nav.glass-panel {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 70px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .task-input-card {
+            padding: 30px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .task-item {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .task-item.completed { opacity: 0.6; }
+        .task-item.completed .task-text { text-decoration: line-through; }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .checkbox.checked { background: var(--accent); }
+        .checkbox.checked::after { content: '✓'; color: white; font-weight: bold; }
+
+        .task-text { flex: 1; font-size: 1.1rem; }
+        
+        .delete-btn {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff4d4d;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .task-item:hover .delete-btn { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <nav class="glass-panel">
+        <h2 style="letter-spacing: 3px; cursor: pointer;" onclick="location.href='../home/home.html'">TIMEWISE</h2>
+        <button class="glass-btn" onclick="location.href='../home/home.html'">Back to Dashboard</button>
+    </nav>
+
+    <div class="tasks-container">
+        <h1 style="margin-bottom: 30px;">Daily Tasks ✅</h1>
+        
+        <div class="glass-panel task-input-card">
+            <input type="text" id="taskInput" class="glass-input" placeholder="What do you need to study today?" style="flex: 1;">
+            <button class="glass-btn primary" onclick="addTask()">Add Task</button>
+        </div>
+
+        <div id="taskList" class="task-list">
+            <!-- Dynamic tasks -->
+        </div>
+    </div>
+
+    <script type="module" src="tasks.js"></script>
+</body>
+</html>

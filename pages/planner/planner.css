@@ -1,0 +1,200 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body { color: white; }
+
+/* BG */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/bg3.jpg") center/cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  z-index: -1;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+}
+
+.nav-links button {
+  margin: 0 8px;
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.nav-links .active {
+  background: black;
+}
+
+/* CONTAINER */
+.container {
+  padding: 120px 60px 40px;
+}
+
+/* GLASS */
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+/* CARDS */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* INPUT */
+.card input,
+.card select {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.card input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+/* BUTTON */
+.card button {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+/* SUBJECT LIST */
+#subjectList div {
+  padding: 8px;
+  margin-top: 5px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* TIMETABLE */
+.day-block {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+}
+
+.day-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
+select {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+option {
+  background: black;
+  color: white;
+}
+#aiBox {
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.9);
+}
+
+#aiBox button {
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  cursor: pointer;
+}
+/* ===== PROFILE DROPDOWN FIX ===== */
+
+.profile {
+  position: relative;
+  cursor: pointer;
+}
+
+/* HIDE DROPDOWN INITIALLY */
+.dropdown {
+  display: none;  /* 🔥 MAIN FIX */
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: rgba(0,0,0,0.95);
+  border-radius: 10px;
+  min-width: 140px;
+  padding: 5px 0;
+  z-index: 2000;
+}
+
+/* BUTTON STYLE INSIDE DROPDOWN */
+.dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background: rgba(255,255,255,0.1);
+}

@@ -1,0 +1,277 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body { color: white; }
+
+/* BG */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/bg3.jpg") center/cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65);
+  z-index: -1;
+}
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  z-index: 1000;
+}
+
+.nav-links button {
+  margin: 0 8px;
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+}
+
+/* PROFILE */
+.profile { position: relative; cursor: pointer; }
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: rgba(0,0,0,0.95);
+  border-radius: 10px;
+  z-index: 2000;
+}
+
+.dropdown button {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* CONTAINER */
+.container {
+  padding: 120px 60px 40px;
+}
+
+/* GLASS */
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* NEXT EXAM */
+.next-exam {
+  text-align: center;
+  width: 60%;
+  margin: auto;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.timer span { font-size: 40px; }
+
+/* ===== CARDS FIX (MAIN) ===== */
+.cards {
+  display: flex;
+  justify-content: center;   /* CENTER FIX */
+  align-items: stretch;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* CARD SIZE FIX */
+.card {
+  width: 280px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+/* LIST UI */
+.plan-item,
+.exam-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.left-text { flex: 1; text-align: left; }
+.right-text { flex: 1; text-align: right; }
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+}
+
+/* TIMER */
+.timer-box { text-align: center; }
+
+.mode {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.mode button {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+}
+
+.mode .active {
+  background: linear-gradient(45deg,#000000,#000000);
+}
+
+/* TIMER CIRCLE */
+.circle {
+  width: 140px;
+  height: 140px;
+  border: 4px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  margin: 15px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+/* INPUT */
+#customTime {
+  width: 80%;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+}
+
+/* BUTTONS */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.controls button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(45deg,#000000,#000000);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* MOBILE FIX */
+@media (max-width: 900px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
+/* STREAK */
+#streak {
+  margin-top: 5px;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+/* PROGRESS LOOK */
+#progressText {
+  text-align: center;
+  opacity: 0.8;
+}
+
+.circle {
+  box-shadow: 0 0 20px rgba(108,99,255,0.3);
+}
+/* CENTER CARDS (PROGRESS + TIMER) */
+.center-card {
+  align-items: center;
+  text-align: center;
+}
+
+/* BOTTOM ROW SPACING */
+.cards + .cards {
+  margin-top: 30px;
+}
+/* TOP ROW FIX */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
+}
+
+/* 3 CARDS WIDTH */
+.card {
+  width: 260px;
+}
+
+/* CENTER CONTENT */
+.center-card {
+  text-align: center;
+  align-items: center;
+}
+
+/* TIMER ROW CENTER */
+.timer-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+#aiBox {
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.9);
+}
+
+#aiBox button {
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background: white;
+  cursor: pointer;
+}

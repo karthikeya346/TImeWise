@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | TIMEWISE</title>
+    <link rel="stylesheet" href="../../styles/glass.css">
+    <script>
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    </script>
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        nav.glass-panel {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 70px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .greeting-card {
+            grid-column: span 2;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .greeting-main h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .greeting-stats { display: flex; gap: 30px; margin-top: 15px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; display: block; }
+        .stat-label { font-size: 0.8rem; opacity: 0.7; }
+
+        .quick-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .stat-card { padding: 25px; text-align: center; }
+
+        .nav-cards {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .nav-card {
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .nav-card:hover { transform: translateY(-5px); }
+        .nav-icon { font-size: 2.5rem; margin-bottom: 15px; }
+
+        .timetable-section { grid-column: span 2; padding: 30px; }
+        .timetable-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        
+        .timetable-grid { display: flex; flex-direction: column; gap: 15px; }
+        .timetable-day { margin-bottom: 30px; }
+        .day-title { border-bottom: 1px solid var(--card-border); padding-bottom: 10px; margin-bottom: 15px; font-weight: 600; }
+
+        .study-block {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid var(--accent);
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-container { grid-template-columns: 1fr; }
+            .greeting-card, .nav-cards, .timetable-section { grid-column: span 1; }
+            .nav-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <nav class="glass-panel">
+        <h2 style="letter-spacing: 3px;">TIMEWISE</h2>
+        <div style="display: flex; gap: 15px;">
+            <button class="glass-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+            <button class="glass-btn" id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- A. Greeting Section -->
+        <div class="glass-panel greeting-card">
+            <div class="greeting-main">
+                <h1 id="greetingMsg">Good Morning, Student</h1>
+                <div class="greeting-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="streakVal">0</span>
+                        <span class="stat-label">🔥 Streak</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="tasksVal">0</span>
+                        <span class="stat-label">✅ Tasks Today</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="studyHoursVal">0h</span>
+                        <span class="stat-label">📚 Study Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- B. Quick Stats -->
+        <div class="quick-stats" style="grid-column: span 2;">
+            <div class="glass-panel stat-card">
+                <span class="stat-label">Next Exam In</span>
+                <span class="stat-value" id="nextExamDays" style="font-size: 2.2rem; margin: 10px 0;">--</span>
+                <span class="stat-label" id="nextExamName">No upcoming exams</span>
+            </div>
+            <div class="glass-panel stat-card">
+                <span class="stat-label">Course Progress</span>
+                <div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; margin: 20px 0; overflow: hidden;">
+                    <div id="progressBar" style="width: 0%; height: 100%; background: var(--accent); transition: width 0.5s ease;"></div>
+                </div>
+                <span class="stat-value" id="progressPercent">0%</span>
+            </div>
+        </div>
+
+        <!-- C. Feature Navigation -->
+        <div class="nav-cards">
+            <div class="glass-card nav-card" onclick="location.href='../planner/planner.html'">
+                <div class="nav-icon">📅</div>
+                <h3>Study Planner</h3>
+                <p>Build your study schedule</p>
+            </div>
+            <div class="glass-card nav-card" onclick="location.href='../tasks/tasks.html'">
+                <div class="nav-icon">✅</div>
+                <h3>Daily Tasks</h3>
+                <p>Stay on top of your work</p>
+            </div>
+            <div class="glass-card nav-card" onclick="location.href='../progress/progress.html'">
+                <div class="nav-icon">📈</div>
+                <h3>Progress Tracker</h3>
+                <p>Visualize your success</p>
+            </div>
+        </div>
+
+        <!-- D. Timetable Section -->
+        <div class="glass-panel timetable-section">
+            <div class="timetable-header">
+                <h2>Study Timetable</h2>
+                <button class="glass-btn" onclick="location.href='../planner/planner.html'">Update Plan</button>
+            </div>
+            <div id="timetableContent" class="timetable-grid">
+                <!-- Injected via JS -->
+                <p style="opacity: 0.5; text-align: center; padding: 40px;">No active study plan found. Start by creating one in the Planner.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="home.js"></script>
+</body>
+</html>

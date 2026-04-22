@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracker | TIMEWISE</title>
+    <link rel="stylesheet" href="../../styles/glass.css">
+    <script>
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    </script>
+    <style>
+        .progress-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        nav.glass-panel {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 70px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .chart-card { padding: 40px; text-align: center; grid-column: span 2; }
+        .stat-card { padding: 30px; text-align: center; }
+
+        .progress-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent) 0%, rgba(255,255,255,0.1) 0%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: background 1s ease-out;
+        }
+
+        .progress-circle::after {
+            content: '';
+            width: 160px;
+            height: 160px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .progress-value {
+            position: relative;
+            z-index: 10;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .history-list {
+            grid-column: span 2;
+            padding: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .progress-container { grid-template-columns: 1fr; }
+            .chart-card, .history-list { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <nav class="glass-panel">
+        <h2 style="letter-spacing: 3px; cursor: pointer;" onclick="location.href='../home/home.html'">TIMEWISE</h2>
+        <button class="glass-btn" onclick="location.href='../home/home.html'">Back to Dashboard</button>
+    </nav>
+
+    <div class="progress-container">
+        <div class="glass-panel chart-card">
+            <h2 style="margin-bottom: 30px;">Daily Completion Rate</h2>
+            <div class="progress-circle" id="progressCircle">
+                <span class="progress-value" id="progressVal">0%</span>
+            </div>
+            <p id="progressStatus" style="opacity: 0.7;">Start completing tasks to see your progress!</p>
+        </div>
+
+        <div class="glass-panel stat-card">
+            <h3 style="opacity: 0.7; font-size: 0.9rem; text-transform: uppercase;">Total Tasks Done</h3>
+            <div style="font-size: 3rem; font-weight: bold; margin: 15px 0;" id="totalTasks">0</div>
+            <p>Lifetime achievement</p>
+        </div>
+
+        <div class="glass-panel stat-card">
+            <h3 style="opacity: 0.7; font-size: 0.9rem; text-transform: uppercase;">Average Focus</h3>
+            <div style="font-size: 3rem; font-weight: bold; margin: 15px 0;" id="avgFocus">--</div>
+            <p>Consistency is key</p>
+        </div>
+
+        <div class="glass-panel history-list">
+            <h2 style="margin-bottom: 20px;">Study History</h2>
+            <div id="historyContent">
+                <p style="opacity: 0.5;">No history records found yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="progress.js"></script>
+</body>
+</html>

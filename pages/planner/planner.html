@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner | TIMEWISE</title>
+    <link rel="stylesheet" href="../../styles/glass.css">
+    <script>
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    </script>
+    <style>
+        .planner-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px 40px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 25px;
+        }
+
+        nav.glass-panel {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 70px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .input-card { padding: 35px; }
+        .subject-list { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
+        
+        .subject-pill {
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 12px;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; opacity: 0.8; }
+
+        .preview-card { padding: 35px; }
+
+        @media (max-width: 850px) {
+            .planner-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <nav class="glass-panel">
+        <h2 style="letter-spacing: 3px; cursor: pointer;" onclick="location.href='../home/home.html'">TIMEWISE</h2>
+        <button class="glass-btn" onclick="location.href='../home/home.html'">Back to Dashboard</button>
+    </nav>
+
+    <div class="planner-container">
+        <!-- Input Section -->
+        <div class="glass-panel input-card">
+            <h1 style="margin-bottom: 30px;">Plan Your Success 🎯</h1>
+            
+            <div class="input-group">
+                <label>Daily Study Commitment (Hours)</label>
+                <input type="number" id="dailyHours" class="glass-input" placeholder="e.g. 6" min="1" max="16">
+            </div>
+
+            <div style="margin: 30px 0; border-top: 1px solid var(--card-border);"></div>
+
+            <h3 style="margin-bottom: 15px;">Add Subjects</h3>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <input type="text" id="subName" class="glass-input" placeholder="Subject Name" style="flex: 2;">
+                <select id="subPriority" class="glass-input" style="flex: 1;">
+                    <option value="1">Low Priority</option>
+                    <option value="2" selected>Medium Priority</option>
+                    <option value="3">High Priority</option>
+                </select>
+                <button class="glass-btn primary" onclick="addSubject()">Add</button>
+            </div>
+
+            <div id="subjectList" class="subject-list">
+                <!-- Subject Pills -->
+            </div>
+        </div>
+
+        <!-- Target & Generation -->
+        <div class="glass-panel preview-card">
+            <h2 style="margin-bottom: 25px;">Final Target</h2>
+            
+            <div class="input-group">
+                <label>Exam Name</label>
+                <input type="text" id="examName" class="glass-input" placeholder="e.g. Finals 2024">
+            </div>
+
+            <div class="input-group">
+                <label>Target Exam Date</label>
+                <input type="date" id="examDate" class="glass-input">
+            </div>
+
+            <button class="glass-btn primary" style="width: 100%; margin-top: 20px; font-size: 1.1rem; padding: 15px;" onclick="generatePlan()">
+                Generate Study Plan
+            </button>
+
+            <div style="margin-top: 30px; font-size: 0.85rem; opacity: 0.7; border: 1px dashed var(--card-border); padding: 15px; border-radius: 12px;">
+                <strong>Logic Engine:</strong> Our algorithm calculates the time remaining and distributes your subjects evenly. High priority subjects receive more daily focus time.
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="planner.js"></script>
+</body>
+</html>
