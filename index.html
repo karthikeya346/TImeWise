@@ -38,23 +38,22 @@
         <span class="loader"></span>
     </div>
 
-    <script type="module">
-        import { auth } from './scripts/firebase.js';
-        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+<script type="module">
+    import { auth } from './scripts/firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-        // Apply theme early
-        const theme = localStorage.getItem('theme') || 'light';
-        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    // Apply theme early
+    const theme = localStorage.getItem('theme') || 'light';
+    if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
 
-        onAuthStateChanged(auth, (user) => {
-            setTimeout(() => {
-                if (user) {
-                    window.location.href = './pages/home/home.html';
-                } else {
-                    window.location.href = './auth/login.html';
-                }
-            }, 1000);
-        });
-    </script>
+    // ✅ FIXED (NO setTimeout)
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.location.href = './pages/home/home.html';
+        } else {
+            window.location.href = './auth/login.html';
+        }
+    });
+</script>
 </body>
 </html>
